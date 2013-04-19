@@ -1,0 +1,18 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+.settings/
+.serviceAnnotationLog
+.project
+.classpath
+
+# Maven #
+target/
+bin/
+
+fenix-framework.properties
+

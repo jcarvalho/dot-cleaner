@@ -1,0 +1,4 @@
+dbAlias=//localhost:3306/dot?useUnicode=true&amp;characterEncoding=UTF-8&amp;clobCharacterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+dbName = dot
+dbUsername=root
+dbPassword=
