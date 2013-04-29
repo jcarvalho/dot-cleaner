@@ -19,7 +19,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import pt.ist.fenixframework.DmlCompiler;
+import pt.ist.fenixframework.DomainModelParser;
 import pt.ist.fenixframework.core.DmlFile;
 import pt.ist.fenixframework.core.Project;
 import pt.ist.fenixframework.dml.DomainClass;
@@ -47,7 +47,7 @@ public class CleanUpTest {
         for (DmlFile dmlFile : project.getFullDmlSortedList()) {
             dmls.add(dmlFile.getUrl());
         }
-        domainModel = DmlCompiler.getDomainModel(dmls);
+        domainModel = DomainModelParser.getDomainModel(dmls);
         Assert.assertNotNull(domainModel);
 
         Properties properties = new Properties();
