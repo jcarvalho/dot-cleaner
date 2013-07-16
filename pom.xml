@@ -5,7 +5,7 @@
     <parent>
         <groupId>pt.ist</groupId>
         <artifactId>bennu-project</artifactId>
-        <version>1.1.0-rc1</version>
+        <version>1.1.0</version>
         <relativePath></relativePath>
     </parent>
 
@@ -17,7 +17,6 @@
             <plugin>
                 <groupId>pt.ist</groupId>
                 <artifactId>ff-maven-plugin</artifactId>
-                <version>2.1.0-rc2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -32,8 +31,8 @@
     <dependencies>
         <dependency>
             <groupId>pt.ist</groupId>
-            <artifactId>job-bank-ist</artifactId>
-            <version>1.1.0-rc1</version>
+            <artifactId>organization</artifactId>
+            <version>1.1.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -44,7 +43,6 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.0.9</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -55,8 +53,8 @@
 
     <repositories>
         <repository>
-            <id>fenix-ashes-private</id>
-            <url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-private</url>
+            <id>fenix-ashes-maven-repository</id>
+            <url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-maven-repository</url>
         </repository>
     </repositories>
 
