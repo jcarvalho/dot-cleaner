@@ -82,20 +82,30 @@ public class CleanUpTest {
 
     @Test
     public void doCleanup() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet rs =
-                statement.executeQuery("select TABLE_NAME from information_schema.columns where table_schema = '" + dbName
-                        + "' and COLUMN_NAME like '%OJB_CONCRETE_CLASS%'");
+
+        Set<String> allTables = new HashSet<String>();
+
+        for (DomainClass domClass : domainModel.getDomainClasses()) {
+            allTables.add(getExpectedTableName(domClass));
+        }
 
         Set<String> tables = new HashSet<String>();
 
-        while (rs.next()) {
-            tables.add(rs.getString(1));
+        Statement statement = connection.createStatement();
+
+        for (String tableName : allTables) {
+            ResultSet rs = statement.executeQuery("select count(distinct (OID >> 32)) from " + tableName);
+            rs.next();
+
+            if (rs.getInt(1) > 1) {
+                tables.add(tableName);
+            }
+            rs.close();
         }
 
-        rs.close();
+        System.out.println("Cleaning : " + tables);
 
-        rs = statement.executeQuery("SELECT * FROM FF$DOMAIN_CLASS_INFO");
+        ResultSet rs = statement.executeQuery("SELECT * FROM FF$DOMAIN_CLASS_INFO");
 
         Map<String, Integer> classes = Maps.newHashMap();
 
@@ -133,5 +143,32 @@ public class CleanUpTest {
         rs.close();
         statement.close();
 
+    }
+
+    public static String getExpectedTableName(final DomainClass domainClass) {
+        if (domainClass.getSuperclass() == null) {
+            return getTableName(domainClass.getName());
+        }
+        return domainClass.getSuperclass() instanceof DomainClass ? getExpectedTableName((DomainClass) domainClass
+                .getSuperclass()) : null;
+    }
+
+    private static String getTableName(final String name) {
+        final StringBuilder stringBuilder = new StringBuilder();
+        boolean isFirst = true;
+        for (final char c : name.toCharArray()) {
+            if (isFirst) {
+                isFirst = false;
+                stringBuilder.append(Character.toUpperCase(c));
+            } else {
+                if (Character.isUpperCase(c)) {
+                    stringBuilder.append('_');
+                    stringBuilder.append(c);
+                } else {
+                    stringBuilder.append(Character.toUpperCase(c));
+                }
+            }
+        }
+        return stringBuilder.toString();
     }
 }
