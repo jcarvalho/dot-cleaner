@@ -119,7 +119,8 @@ public class CleanUpTest {
         inStatement.append(")");
 
         for (String table : tables) {
-            if (table.equals("GENERIC_LOG") || table.equals("SIGNATURE_INTENTION")) {
+            if (table.equals("GENERIC_LOG") || table.equals("SIGNATURE_INTENTION") || table.equals("IMPORT_REGISTER")
+                    || table.startsWith("FF$")) {
                 continue;
             }
             ResultSet result = statement.executeQuery("SELECT OID FROM " + table + " WHERE OID >> 32 in" + inStatement);
